@@ -1,0 +1,39 @@
+<h1>file upload test</h1>
+
+<form id="form" method="post" action="/upload" enctype="multipart/form-data">
+  <div><input id="file-picker" type="file" name="file"></div>
+  <div><input type="submit" value="Upload"></div>
+</form>
+
+<p id="message"></p>
+
+<span>Blob list</span>
+<button id="update">Update</button>
+
+<ul>
+<% blobList.forEach(blob=> { %>
+  <li>
+    <a href="https://<%= accountName %>.blob.core.windows.net/<%= containerName %>/<%= blob %> ">
+      <%= blob %>
+    </a>
+  </li>
+<% }); %>
+</ul>
+
+<script>
+  'use strict';
+
+  const picker = document.getElementById('file-picker');
+  const message = document.getElementById('message');
+
+  document.getElementById('form').addEventListener('submit', (e) => {
+    if (!picker.files.length) {
+      e.preventDefault();
+      message.innerText = 'Select a file!';
+    }
+  });
+
+  document.getElementById('update').addEventListener('click', () => {
+    location.reload();
+  });
+</script>
